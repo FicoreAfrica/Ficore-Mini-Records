@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
-{% block title %}{{ trans('track_transaction') | default('Add Transaction') }}{% endblock %}
+{% block title %}{{ trans('add_transaction') | default('Add Transaction') }}{% endblock %}
 {% block content %}
 <div class="container my-5">
-    <h1 class="text-center mb-4">{{ transaction_id | default(trans('track_transaction') | default('Add Transaction')) if transaction_id else trans('track_transaction') | default('Add Transaction') }}</h1>
+    <h1 class="text-center mb-4 text-color">{{ transaction_id | default(trans('add_transaction') | default('Add Transaction')) if transaction_id else trans('add_transaction') | default('Add Transaction') }}</h1>
     <div class="card mx-auto" style="max-width: 600px;">
         <div class="card-body">
             <form class="validate-form" method="POST" action="{{ url_for('transactions.update_transaction', transaction_id=transaction_id) if transaction_id else url_for('transactions.add_transaction') }}">
@@ -39,11 +39,7 @@
                     <textarea name="description" id="description" class="form-control" required>{{ form.description.data or '' }}</textarea>
                     <div class="invalid-feedback">{{ form.description.errors[0] if form.description.errors else trans('required_field') | default('This field is required') }}</div>
                 </div>
-                <div class="form-group mb-3">
-                    <label for="tags" class="form-label">{{ trans('tags') | default('Tags') }}</label>
-                    <input type="text" name="tags" id="tags" class="form-control" value="{{ form.tags.data or '' }}" placeholder="{{ trans('tags_placeholder') | default('Enter tags, separated by commas') }}">
-                    <div class="invalid-feedback">{{ form.tags.errors[0] if form.tags.errors }}</div>
-                </div>
+                {# Removed Tags form group #}
                 <div class="form-group mb-3 form-check">
                     <input type="checkbox" name="is_recurring" id="is_recurring" class="form-check-input" {% if form.is_recurring.data %}checked{% endif %}>
                     <label for="is_recurring" class="form-check-label">{{ trans('recurring') | default('Recurring Transaction') }}</label>
